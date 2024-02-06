@@ -1,0 +1,22 @@
+service: aws-lambda-llm-api
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.11
+  timeout: 900
+  memorySize: 10240
+  ecr:
+    # In this section you can define images that will be built locally and uploaded to ECR
+    images:
+      appimage:
+        path: ./
+  stage: dev
+  region: ap-south-1
+
+functions:
+  api:
+    provisionedConcurrency: 1
+    url: true
+    image:
+      name: appimage
